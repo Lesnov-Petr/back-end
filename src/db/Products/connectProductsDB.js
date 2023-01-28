@@ -1,12 +1,13 @@
-const { MongoClient } = require("mongodb");
-const collections = require("./dbProducts");
-
-const connectMongoProductsDB = async () => {
-  const client = await MongoClient.connect(process.env.MONGO_URL, {
+const mongoose = require("mongoose");
+require("dotenv").config();
+const connectMongo = async () => {
+  mongoose.set("strictQuery", false);
+  return mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
-  const db = client.db();
-  collections.Products = db.collection("products");
 };
 
-module.exports = { connectMongoProductsDB };
+module.exports = {
+  connectMongo,
+};
