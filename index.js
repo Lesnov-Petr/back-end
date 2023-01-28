@@ -2,8 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
 const app = express();
-const { connectMongo } = require("./db/Products/connectProductsDB");
-const { porductsRouter } = require("./routers/productsRouter");
+const { connectMongo } = require("./src/db/Products/connectProductsDB");
+const { porductsRouter } = require("./src/routers/productsRouter");
 const PORT = process.env.PORT;
 
 app.use(express.json());
