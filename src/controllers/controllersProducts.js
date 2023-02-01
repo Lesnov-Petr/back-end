@@ -1,8 +1,8 @@
 const { searchProducts } = require("../services/serviceProducts");
 
 const getListProductsController = async (req, res) => {
-  const product = req.body;
-  const products = await searchProducts(product);
+  const { query } = req.query;
+  const products = await searchProducts(query);
   return products
     ? res.json({ products, status: 200 })
     : res.json({ message: "Cannot find", status: 400 });
