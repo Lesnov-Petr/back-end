@@ -9,7 +9,7 @@ const { userRegistrationValidation } = require("../middleware/validations");
 
 authRouter
   .post(
-    "/signup",
+    "/singup",
     userRegistrationValidation,
     asyncWrapper(registerUsersController)
   )
