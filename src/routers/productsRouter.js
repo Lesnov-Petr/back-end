@@ -5,11 +5,20 @@ const {
   getListProductsController,
   getEatenProductsController,
   addEatenProductsController,
+  deleteEatenProductsController,
 } = require("../controllers/controllersProducts");
+const { addProductValidation } = require("../middleware/validations");
+const { authMiddleware } = require("../middleware/authMiddleware");
 
 porductsRouter
+  .use(authMiddleware)
   .get("/", asyncWrapper(getListProductsController))
   .get("/eaten", asyncWrapper(getEatenProductsController))
-  .post("/eaten", asyncWrapper(addEatenProductsController));
+  .post(
+    "/eaten",
+    addProductValidation,
+    asyncWrapper(addEatenProductsController)
+  )
+  .delete("/eaten:id", asyncWrapper(deleteEatenProductsController));
 
 module.exports = { porductsRouter };

@@ -18,29 +18,46 @@ const searchProducts = async (query) => {
   return listProducts;
 };
 
-const addEatenProduct = async (title, calories, weight, date) => {
+const addEatenProduct = async (title, calories, weight, date, owner) => {
+  const listEatenProductsByUser = await EatenProducts.findOne({ owner });
   const _id = new ObjectID();
-  const searchList = await EatenProducts.find({});
-  if (!searchList) {
+  if (!listEatenProductsByUser) {
     const newEatenProductList = new EatenProducts({
+      owner: owner,
       eatenProducts: [{ _id, title, calories, weight, date }],
     });
     await newEatenProductList.save();
+    return _id;
   }
-  await EatenProducts.findOneAndUpdate({
-    $push: { eatenProducts: { _id, title, calories, weight, date } },
-  });
+
+  await EatenProducts.findOneAndUpdate(
+    { owner },
+    { $push: { eatenProducts: { _id, title, calories, weight, date } } }
+  );
 
   return _id;
 };
 
-const getEatenProducts = async (query) => {
-  const getEatenProduct = await EatenProducts.find({});
-  const getEatenProductsByDate = getEatenProduct.map(({ eatenProducts }) =>
+const getEatenProducts = async (query, owner) => {
+  const { eatenProducts } = await EatenProducts.findOne({ owner });
+
+  const getEatenProductsByDate = eatenProducts.map((product) =>
     eatenProducts.filter((product) => product.date === query)
   );
 
   return getEatenProductsByDate;
 };
 
-module.exports = { searchProducts, addEatenProduct, getEatenProducts };
+const deleteEatenProducts = async (id, owner) => {
+  await EatenProducts.updateOne(
+    { owner },
+    { $pull: { eatenProducts: { _id: id } } }
+  );
+};
+
+module.exports = {
+  searchProducts,
+  addEatenProduct,
+  getEatenProducts,
+  deleteEatenProducts,
+};

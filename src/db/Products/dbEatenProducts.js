@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const schemaEatenProducts = new mongoose.Schema({
-  // owner: {
-  //   type: String,
-  //   require: [true, "Provide user id"],
-  //   unique: true,
-  // },
+  owner: {
+    type: String,
+    require: [true, "Provide user id"],
+    unique: true,
+  },
   eatenProducts: [
     {
       title: {
