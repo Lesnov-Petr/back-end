@@ -6,10 +6,8 @@ const { EatenProducts } = require("../db/Products/dbEatenProducts");
 const searchProducts = async (query) => {
   const allProducts = await Products.find({});
   console.log("query", query);
-  const decodedQuery = decodeURIComponent(query);
-  console.log("decoded", decodedQuery);
 
-  const normolizeQuery = decodedQuery.trim().toLowerCase().split(" "); //example ["гречка", "зеленый"]
+  const normolizeQuery = query.trim().toLowerCase().split(" "); //example ["гречка", "зеленый"]
   const listProducts = allProducts.filter((product) => {
     const normolizeTitleProducts = product.title.ru.toLowerCase().split(" ");
     let coincidences = true;
