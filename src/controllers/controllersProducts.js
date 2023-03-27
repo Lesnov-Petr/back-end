@@ -6,7 +6,6 @@ const {
 } = require("../services/serviceProducts");
 
 const getListProductsController = async (req, res) => {
-  req.originalUrl = decodeURIComponent(req.originalUrl);
   const { query } = req.query;
   if (!query) {
     throw new QueryError("Provide a query string");
