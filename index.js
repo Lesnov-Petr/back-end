@@ -10,7 +10,7 @@ const { authRouter } = require("./src/routers/authRouter");
 
 const PORT = process.env.PORT;
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://fit-book-production.up.railway.app",
 };
 
 app.use(express.json());
