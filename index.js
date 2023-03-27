@@ -18,9 +18,6 @@ app.use(morgan("tiny"));
 app.use(cors(corsOptions));
 
 app.use("/api/users", authRouter);
-app.use("/api/product", (rqu, res) => {
-  res.json({ message: "hello" });
-});
 app.use("/api/products", porductsRouter);
 app.use(errorHandler);
 
