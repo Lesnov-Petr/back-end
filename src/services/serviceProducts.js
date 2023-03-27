@@ -5,7 +5,6 @@ const { EatenProducts } = require("../db/Products/dbEatenProducts");
 
 const searchProducts = async (query) => {
   const allProducts = await Products.find({});
-  console.log(query);
   const normolizeQuery = query.trim().toLowerCase().split(" "); //example ["гречка", "зеленый"]
   const listProducts = allProducts.filter((product) => {
     const normolizeTitleProducts = product.title.ru.toLowerCase().split(" ");

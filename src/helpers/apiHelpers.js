@@ -8,7 +8,9 @@ const asyncWrapper = (controller) => {
 
 const errorHandler = (error, req, res, next) => {
   if (error instanceof CastomsError) {
-    return res.status(error.status).json({ message: error.message });
+    return res
+      .status(error.status)
+      .json({ message: error.message, query: req.query });
   }
   res.status(500).json({ message: error.message });
 };
