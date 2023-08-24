@@ -19,6 +19,9 @@ app.use(cors(corsOptions));
 
 app.use("/api/users", authRouter);
 app.use("/api/products", porductsRouter);
+app.use("/api/test", (req, res) => {
+  return res.send(req.query);
+});
 app.use(errorHandler);
 
 const start = async () => {
